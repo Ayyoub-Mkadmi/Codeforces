@@ -47,3 +47,42 @@ def first_k_primes(k):
     return primes
 
 
+
+#################################################################################################
+#Hedhi khir kalek
+
+
+
+import math
+
+def simple_sieve(limit):
+    sieve = [True] * (limit + 1)
+    sieve[0:2] = [False, False]
+    primes = []
+    
+    for i in range(2, limit + 1):
+        if sieve[i]:
+            primes.append(i)
+            for j in range(i * i, limit + 1, i):
+                sieve[j] = False
+    
+    return primes
+
+def first_k_primes(k):
+    if k == 0:
+        return []
+
+    primes = []
+    limit = 100  # start small
+    while True:
+        primes = simple_sieve(limit)
+        if len(primes) >= k:
+            return primes[:k]
+        limit *= 2  # double the range if not enough primes yet
+
+# Example usage
+k = 10**6  # 1 million primes
+first_primes = first_k_primes(k)
+print(first_primes[:10])  # Print first 10 primes as a test
+
+#################################################################################################
